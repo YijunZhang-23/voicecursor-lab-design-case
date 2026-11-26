@@ -1,0 +1,5 @@
+const links=Array.from(document.querySelectorAll('.tabs a'));
+const panels=Array.from(document.querySelectorAll('.case'));
+function show(id){if(!panels.some(p=>p.id===id))id='evaluation';for(const p of panels)p.hidden=p.id!==id;for(const a of links){if(a.hash==='#'+id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')}}
+show(location.hash.slice(1));for(const a of links)a.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();history.pushState(null,'',a.hash);show(a.hash.slice(1))});window.addEventListener('popstate',()=>show(location.hash.slice(1)));window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
+const dialog=document.querySelector('dialog');for(const b of document.querySelectorAll('.shot'))b.addEventListener('click',()=>{const src=b.querySelector('img');const enlarged=dialog.querySelector('img');enlarged.src=src.src;enlarged.alt=src.alt;dialog.querySelector('strong').textContent=src.alt;dialog.showModal()});dialog.querySelector('button').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()})
